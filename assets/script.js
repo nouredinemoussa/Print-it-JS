@@ -14,14 +14,23 @@ const slides = [
 	{
 		"image":"./assets/images/slideshow/slide4.png",
 		"tagLine":"Autocollants <span>avec découpe laser sur mesure</span>"
-	}
+	},
 ]
 const bannerImg = document.querySelector(".banner-img");
 const leftClick = document.querySelector(".arrow_left");
 const rightClick = document.querySelector(".arrow_right");
-const bulletPoints = document.querySelector(".dot");
+const dotsContainer = document.querySelector(".dots");
 const tagLine = document.querySelector("#banner p");
+let bannerIndex = 0;
 
+slides.forEach((slide, index) => {
+	const bulletPoints = document.createElement("div");
+	bulletPoints.classList.add("dot");
+	if (index === bannerIndex){
+		bulletPoints.classList.add("dot_selected");
+	}
+	dotsContainer.appendChild(bulletPoints);
+});
 const imgDot = () => {
     const dots = document.querySelectorAll('.dot');
     dots.forEach((dot, index) => {
@@ -29,25 +38,28 @@ const imgDot = () => {
     });
 };
 
-let bannerIndex = 0;
-
-bannerImg.setAttribute ("src", slides[bannerIndex].image);
-tagLine.innerHTML = slides[bannerIndex].tagLine;
-
 const nextImage = () => {
-	bannerIndex = (bannerIndex + 1) % slides.length;
-	bannerImg.setAttribute ("src", slides[bannerIndex].image);
-	tagLine.innerHTML = slides[bannerIndex].tagLine;
-	imgDot();
+	if (bannerIndex === slides.length - 1) {
+        bannerIndex = 0;
+    } else {
+        bannerIndex++;
+    }
+    bannerImg.setAttribute("src", slides[bannerIndex].image);
+    tagLine.innerHTML = slides[bannerIndex].tagLine;
+    imgDot();
 }
 const previousImage = () => {
-	bannerIndex = (bannerIndex - 1) % slides.length;
-	bannerImg.setAttribute ("src", slides[bannerIndex].image);
-	tagLine.innerHTML = slides[bannerIndex].tagLine;
-	imgDot();
+    if (bannerIndex === 0) {
+        bannerIndex = slides.length - 1;
+    } else {
+        bannerIndex--;
+    }
+    bannerImg.setAttribute("src", slides[bannerIndex].image);
+    tagLine.innerHTML = slides[bannerIndex].tagLine;
+    imgDot();
 }
-leftClick.addEventListener ('click', previousImage);
-console.log (leftClick);
+
 rightClick.addEventListener ('click',nextImage);
 console.log (rightClick);
-
+leftClick.addEventListener ('click', previousImage);
+console.log (leftClick);
