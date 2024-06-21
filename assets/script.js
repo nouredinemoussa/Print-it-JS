@@ -47,6 +47,7 @@ const nextImage = () => {
     bannerImg.setAttribute("src", slides[bannerIndex].image);
     tagLine.innerHTML = slides[bannerIndex].tagLine;
     imgDot();
+	console.log (rightClick);
 }
 const previousImage = () => {
     if (bannerIndex === 0) {
@@ -57,9 +58,9 @@ const previousImage = () => {
     bannerImg.setAttribute("src", slides[bannerIndex].image);
     tagLine.innerHTML = slides[bannerIndex].tagLine;
     imgDot();
+	console.log (leftClick);
 }
 
 rightClick.addEventListener ('click',nextImage);
-console.log (rightClick);
 leftClick.addEventListener ('click', previousImage);
-console.log (leftClick);
+
